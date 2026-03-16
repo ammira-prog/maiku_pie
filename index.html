@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maiku Pie - Top 1 in Grit & Grind</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #171427, #24183a, #3a2148);
+      color: #fff;
+      position: relative;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease, background 0.8s ease;
+    }
+
+    .scene.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .center-wrap {
+      width: 100%;
+      max-width: 980px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Shared sparkles */
+    .sparkles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sparkle {
+      position: absolute;
+      color: rgba(255, 235, 190, 0.22);
+      font-size: 18px;
+      animation: floatSparkle linear infinite;
+    }
+
+    @keyframes floatSparkle {
+      0% {
+        transform: translateY(110vh) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-20vh) scale(1.1) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    /* Scene 1 */
+    #scene1 {
+      background:
+        radial-gradient(circle at center, rgba(255, 223, 160, 0.06), transparent 32%),
+        linear-gradient(135deg, #171427, #24183a, #3a2148);
+    }
+
+    .title-box {
+      padding: 10px;
+    }
+
+    .title-main {
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      color: #eecb6b;
+      font-size: clamp(1.8rem, 5.5vw, 3.8rem);
+      line-height: 1.18;
+      min-height: 1.25em;
+      text-shadow: 0 0 10px rgba(238, 203, 107, 0.18);
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    .title-sub {
+      margin-top: 16px;
+      font-family: "Cinzel", serif;
+      font-weight: 400;
+      color: #fff4e8;
+      font-size: clamp(0.95rem, 2.5vw, 1.5rem);
+      line-height: 1.4;
+      min-height: 1.5em;
+      opacity: 0.98;
+    }
+
+    .title-glow {
+      animation: glowPulse 1.6s ease-in-out 1;
+    }
+
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 0 rgba(238, 203, 107, 0); }
+      50% { text-shadow: 0 0 22px rgba(238, 203, 107, 0.38); }
+      100% { text-shadow: 0 0 10px rgba(238, 203, 107, 0.18); }
+    }
+
+    /* Scene 2 */
+    #scene2 {
+      background:
+        radial-gradient(circle at center, rgba(255, 228, 180, 0.05), transparent 35%),
+        linear-gradient(135deg, #1a1630, #2a1d44, #3b234a);
+    }
+
+    .message-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 26px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .message-line {
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      line-height: 1.4;
+      opacity: 0;
+      transform: translateY(18px);
+      filter: blur(5px);
+      transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+      white-space: nowrap;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .message-line.show {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .msg1 { color: #fff4e8; }
+    .msg2 { color: #f6e3ba; }
+    .msg3 { color: #f0d48a; font-weight: 600; }
+
+    .cert-button-wrap {
+      margin-top: 34px;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      pointer-events: none;
+    }
+
+    .cert-button-wrap.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .cert-btn {
+      border: 1px solid rgba(255, 234, 186, 0.55);
+      background: linear-gradient(135deg, #eecb6b, #d9b35f);
+      color: #3b2413;
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 24px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25),
+        0 0 0 rgba(238, 203, 107, 0);
+      transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+    }
+
+    .cert-btn:hover,
+    .cert-btn:active {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(238, 203, 107, 0.2);
+    }
+
+    /* Scene 3 */
+    #scene3 {
+      background:
+        radial-gradient(circle at center, rgba(255, 224, 160, 0.12), transparent 26%),
+        linear-gradient(135deg, #171427, #24183a, #3a2148);
+    }
+
+    .certificate-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .certificate-wrap.reveal {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .certificate-img {
+      display: block;
+      width: min(90vw, 520px);
+      height: auto;
+      border-radius: 10px;
+      box-shadow:
+        0 0 26px rgba(238, 203, 107, 0.32),
+        0 0 70px rgba(238, 203, 107, 0.16),
+        0 22px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    @media (max-width: 640px) {
+      .title-main {
+        font-size: clamp(1.55rem, 7vw, 2.1rem);
+      }
+
+      .title-sub {
+        font-size: clamp(0.9rem, 3.7vw, 1rem);
+      }
+
+      .message-line {
+        font-size: clamp(0.84rem, 3.5vw, 1.05rem);
+      }
+
+      .cert-btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .certificate-img {
+        width: min(92vw, 500px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Scene 1 -->
+  <section id="scene1" class="scene active">
+    <div class="sparkles" aria-hidden="true">
+      <span class="sparkle" style="left: 7%; animation-duration: 11s; animation-delay: 0s;">✦</span>
+      <span class="sparkle" style="left: 18%; animation-duration: 13s; animation-delay: 2s;">✧</span>
+      <span class="sparkle" style="left: 31%; animation-duration: 10s; animation-delay: 1s;">✦</span>
+      <span class="sparkle" style="left: 47%; animation-duration: 14s; animation-delay: 3s;">✧</span>
+      <span class="sparkle" style="left: 63%; animation-duration: 11s; animation-delay: 2.5s;">✦</span>
+      <span class="sparkle" style="left: 79%; animation-duration: 12s; animation-delay: 0.8s;">✧</span>
+      <span class="sparkle" style="left: 90%; animation-duration: 15s; animation-delay: 4s;">✦</span>
+    </div>
+
+    <div class="center-wrap title-box">
+      <div id="titleMain" class="title-main"></div>
+      <div id="titleSub" class="title-sub"></div>
+    </div>
+  </section>
+
+  <!-- Scene 2 -->
+  <section id="scene2" class="scene">
+    <div class="sparkles" aria-hidden="true">
+      <span class="sparkle" style="left: 9%; animation-duration: 12s; animation-delay: 0.5s;">✦</span>
+      <span class="sparkle" style="left: 23%; animation-duration: 15s; animation-delay: 2.2s;">✧</span>
+      <span class="sparkle" style="left: 40%; animation-duration: 11s; animation-delay: 1.4s;">✦</span>
+      <span class="sparkle" style="left: 57%; animation-duration: 13s; animation-delay: 3s;">✧</span>
+      <span class="sparkle" style="left: 74%; animation-duration: 12s; animation-delay: 1.1s;">✦</span>
+      <span class="sparkle" style="left: 88%; animation-duration: 14s; animation-delay: 4.2s;">✧</span>
+    </div>
+
+    <div class="center-wrap">
+      <div class="message-stack">
+        <div id="msg1" class="message-line msg1">
+          You showed up, kept pushing, and gave this kickoff your all.
+        </div>
+        <div id="msg2" class="message-line msg2">
+          The result may not be in your favor, but your grind says more than any rank ever could.
+        </div>
+        <div id="msg3" class="message-line msg3">
+          You fought with effort, patience, and heart. That matters more to me.
+        </div>
+
+        <div id="certButtonWrap" class="cert-button-wrap">
+          <button id="certBtn" class="cert-btn">View Your Certificate</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scene 3 -->
+  <section id="scene3" class="scene">
+    <div class="center-wrap">
+      <div id="certificateWrap" class="certificate-wrap">
+        <img
+          class="certificate-img"
+          src="certificate-for-maiku-pie.png.png"
+          alt="Certificate of Recognition for Maiku Pie"
+        />
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const scene1 = document.getElementById("scene1");
+    const scene2 = document.getElementById("scene2");
+    const scene3 = document.getElementById("scene3");
+
+    const titleMain = document.getElementById("titleMain");
+    const titleSub = document.getElementById("titleSub");
+
+    const msg1 = document.getElementById("msg1");
+    const msg2 = document.getElementById("msg2");
+    const msg3 = document.getElementById("msg3");
+
+    const certButtonWrap = document.getElementById("certButtonWrap");
+    const certBtn = document.getElementById("certBtn");
+    const certificateWrap = document.getElementById("certificateWrap");
+
+    const mainText = "Top 1 in Grit & Grind";
+    const subText = "Maiku Pie remains #1 where it matters most.";
+
+    let audioCtx;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone({
+      frequency = 440,
+      type = "sine",
+      duration = 0.08,
+      volume = 0.03,
+      attack = 0.005,
+      release = 0.05,
+      detune = 0,
+      when = 0
+    } = {}) {
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime + when;
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, now);
+      oscillator.detune.setValueAtTime(detune, now);
+
+      gainNode.gain.setValueAtTime(0.0001, now);
+      gainNode.gain.linearRampToValueAtTime(volume, now + attack);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration + release);
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.start(now);
+      oscillator.stop(now + duration + release + 0.02);
+    }
+
+    function playSoftKeyTap() {
+      if (!audioCtx) return;
+      playTone({
+        frequency: 1900 + Math.random() * 250,
+        type: "square",
+        duration: 0.012,
+        volume: 0.012,
+        attack: 0.001,
+        release: 0.018
+      });
+      playTone({
+        frequency: 900 + Math.random() * 100,
+        type: "triangle",
+        duration: 0.015,
+        volume: 0.006,
+        attack: 0.001,
+        release: 0.02
+      });
+    }
+
+    function playTinyChime() {
+      if (!audioCtx) return;
+      playTone({ frequency: 1046.5, type: "sine", duration: 0.15, volume: 0.028, attack: 0.01, release: 0.12, when: 0 });
+      playTone({ frequency: 1318.5, type: "sine", duration: 0.18, volume: 0.022, attack: 0.01, release: 0.14, when: 0.06 });
+      playTone({ frequency: 1568, type: "sine", duration: 0.22, volume: 0.018, attack: 0.01, release: 0.16, when: 0.11 });
+    }
+
+    function playGentleChime() {
+      if (!audioCtx) return;
+      playTone({ frequency: 783.99, type: "sine", duration: 0.16, volume: 0.026, attack: 0.01, release: 0.14, when: 0 });
+      playTone({ frequency: 987.77, type: "sine", duration: 0.22, volume: 0.02, attack: 0.01, release: 0.18, when: 0.05 });
+      playTone({ frequency: 1174.66, type: "sine", duration: 0.28, volume: 0.017, attack: 0.01, release: 0.22, when: 0.1 });
+    }
+
+    function playWhoosh() {
+      if (!audioCtx) return;
+
+      const bufferSize = audioCtx.sampleRate * 0.35;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+      }
+
+      const source = audioCtx.createBufferSource();
+      source.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.frequency.value = 900;
+      filter.Q.value = 0.7;
+
+      const gainNode = audioCtx.createGain();
+      const now = audioCtx.currentTime;
+
+      gainNode.gain.setValueAtTime(0.0001, now);
+      gainNode.gain.linearRampToValueAtTime(0.018, now + 0.05);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.36);
+
+      source.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      source.start(now);
+      source.stop(now + 0.38);
+    }
+
+    function playAchievementChime() {
+      if (!audioCtx) return;
+      playTone({ frequency: 659.25, type: "sine", duration: 0.2, volume: 0.026, attack: 0.01, release: 0.14, when: 0 });
+      playTone({ frequency: 987.77, type: "sine", duration: 0.24, volume: 0.022, attack: 0.01, release: 0.16, when: 0.08 });
+      playTone({ frequency: 1318.5, type: "sine", duration: 0.34, volume: 0.018, attack: 0.01, release: 0.2, when: 0.16 });
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function typeText(element, text, delay = 85, sound = false) {
+      element.textContent = "";
+      for (let i = 0; i < text.length; i++) {
+        element.textContent += text[i];
+        if (sound && text[i] !== " ") {
+          playSoftKeyTap();
+        }
+        await wait(delay);
+      }
+    }
+
+    async function startScene1() {
+      await wait(500);
+      await typeText(titleMain, mainText, 78, true);
+      await wait(350);
+      await typeText(titleSub, subText, 55, true);
+      titleMain.classList.add("title-glow");
+      playTinyChime();
+
+      await wait(1800);
+      goToScene2();
+    }
+
+    async function goToScene2() {
+      scene1.classList.remove("active");
+      scene2.classList.add("active");
+
+      await wait(750);
+      msg1.classList.add("show");
+      playWhoosh();
+
+      await wait(1200);
+      msg2.classList.add("show");
+      playWhoosh();
+
+      await wait(1300);
+      msg3.classList.add("show");
+      playWhoosh();
+
+      await wait(400);
+      playGentleChime();
+
+      await wait(900);
+      certButtonWrap.classList.add("show");
+    }
+
+    async function goToScene3() {
+      playAchievementChime();
+
+      scene2.classList.remove("active");
+      scene3.classList.add("active");
+
+      await wait(220);
+      certificateWrap.classList.add("reveal");
+    }
+
+    certBtn.addEventListener("click", async () => {
+      initAudio();
+      await goToScene3();
+    });
+
+    // Start after first user interaction to allow audio on mobile browsers
+    async function beginExperience() {
+      initAudio();
+      document.removeEventListener("click", beginExperience);
+      document.removeEventListener("touchstart", beginExperience);
+      startScene1();
+    }
+
+    document.addEventListener("click", beginExperience, { once: true });
+    document.addEventListener("touchstart", beginExperience, { once: true });
+  </script>
+</body>
+</html>
