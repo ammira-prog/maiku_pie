@@ -57,7 +57,6 @@
       z-index: 2;
     }
 
-    /* Start overlay */
     .start-screen {
       position: absolute;
       inset: 0;
@@ -117,7 +116,6 @@
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
     }
 
-    /* Shared sparkles */
     .sparkles {
       position: absolute;
       inset: 0;
@@ -147,7 +145,6 @@
       }
     }
 
-    /* Scene 1 */
     #scene1 {
       background:
         radial-gradient(circle at center, rgba(255, 223, 160, 0.06), transparent 32%),
@@ -190,7 +187,6 @@
       100% { text-shadow: 0 0 10px rgba(238, 203, 107, 0.18); }
     }
 
-    /* Scene 2 */
     #scene2 {
       background:
         radial-gradient(circle at center, rgba(255, 228, 180, 0.05), transparent 35%),
@@ -269,7 +265,6 @@
         0 0 20px rgba(238, 203, 107, 0.2);
     }
 
-    /* Scene 3 */
     #scene3 {
       background:
         radial-gradient(circle at center, rgba(255, 224, 160, 0.12), transparent 26%),
@@ -340,7 +335,6 @@
   </style>
 </head>
 <body>
-  <!-- Start screen -->
   <div id="startScreen" class="start-screen">
     <div class="start-card">
       <div class="start-title">For Maiku Pie</div>
@@ -349,7 +343,6 @@
     </div>
   </div>
 
-  <!-- Scene 1 -->
   <section id="scene1" class="scene">
     <div class="sparkles" aria-hidden="true">
       <span class="sparkle" style="left: 7%; animation-duration: 11s; animation-delay: 0s;">✦</span>
@@ -367,7 +360,6 @@
     </div>
   </section>
 
-  <!-- Scene 2 -->
   <section id="scene2" class="scene">
     <div class="sparkles" aria-hidden="true">
       <span class="sparkle" style="left: 9%; animation-duration: 12s; animation-delay: 0.5s;">✦</span>
@@ -384,7 +376,7 @@
           You showed up, kept pushing, and gave this kickoff your all.
         </div>
         <div id="msg2" class="message-line msg2">
-          The result may not be in your favor, but your grind says more than any rank ever could.
+          Your grind says more than any rank ever could.
         </div>
         <div id="msg3" class="message-line msg3">
           You fought with effort, patience, and heart. That matters more to me.
@@ -397,7 +389,6 @@
     </div>
   </section>
 
-  <!-- Scene 3 -->
   <section id="scene3" class="scene">
     <div class="center-wrap">
       <div id="certificateWrap" class="certificate-wrap">
@@ -624,4 +615,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
