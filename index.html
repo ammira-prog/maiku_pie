@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maiku Pie - Top 1 in Grit & Grind</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -58,6 +57,66 @@
       z-index: 2;
     }
 
+    /* Start overlay */
+    .start-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at center, rgba(255, 223, 160, 0.05), transparent 30%),
+        linear-gradient(135deg, #171427, #24183a, #3a2148);
+      z-index: 20;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .start-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .start-card {
+      text-align: center;
+      padding: 28px 22px;
+    }
+
+    .start-title {
+      font-family: "Cinzel", serif;
+      font-size: clamp(1.5rem, 5vw, 2.3rem);
+      color: #eecb6b;
+      margin-bottom: 14px;
+      text-shadow: 0 0 12px rgba(238, 203, 107, 0.2);
+    }
+
+    .start-sub {
+      font-size: clamp(0.95rem, 3.2vw, 1.05rem);
+      color: #fff4e8;
+      opacity: 0.92;
+      margin-bottom: 26px;
+    }
+
+    .tap-btn {
+      border: 1px solid rgba(255, 234, 186, 0.55);
+      background: linear-gradient(135deg, #eecb6b, #d9b35f);
+      color: #3b2413;
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 26px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .tap-btn:hover,
+    .tap-btn:active {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+    }
+
     /* Shared sparkles */
     .sparkles {
       position: absolute;
@@ -104,10 +163,9 @@
       font-weight: 700;
       color: #eecb6b;
       font-size: clamp(1.8rem, 5.5vw, 3.8rem);
-      line-height: 1.18;
+      line-height: 1.2;
       min-height: 1.25em;
       text-shadow: 0 0 10px rgba(238, 203, 107, 0.18);
-      white-space: nowrap;
       letter-spacing: 0.01em;
     }
 
@@ -117,7 +175,7 @@
       font-weight: 400;
       color: #fff4e8;
       font-size: clamp(0.95rem, 2.5vw, 1.5rem);
-      line-height: 1.4;
+      line-height: 1.45;
       min-height: 1.5em;
       opacity: 0.98;
     }
@@ -143,23 +201,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 26px;
+      gap: 28px;
       width: 100%;
-      max-width: 1200px;
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     .message-line {
       font-family: "Poppins", sans-serif;
       font-weight: 500;
-      font-size: clamp(1rem, 3vw, 1.6rem);
-      line-height: 1.4;
+      font-size: clamp(1.15rem, 3.8vw, 1.75rem);
+      line-height: 1.5;
       opacity: 0;
       transform: translateY(18px);
       filter: blur(5px);
       transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
-      white-space: nowrap;
       text-align: center;
       padding: 0 8px;
+      max-width: 100%;
     }
 
     .message-line.show {
@@ -173,7 +232,7 @@
     .msg3 { color: #f0d48a; font-weight: 600; }
 
     .cert-button-wrap {
-      margin-top: 34px;
+      margin-top: 18px;
       opacity: 0;
       transform: translateY(14px);
       transition: opacity 0.7s ease, transform 0.7s ease;
@@ -245,18 +304,31 @@
 
     @media (max-width: 640px) {
       .title-main {
-        font-size: clamp(1.55rem, 7vw, 2.1rem);
+        font-size: clamp(1.7rem, 7vw, 2.3rem);
+        line-height: 1.25;
+        white-space: normal;
       }
 
       .title-sub {
-        font-size: clamp(0.9rem, 3.7vw, 1rem);
+        font-size: clamp(0.95rem, 4vw, 1.05rem);
+        line-height: 1.5;
+        padding: 0 12px;
+      }
+
+      .message-stack {
+        max-width: 92vw;
+        gap: 24px;
       }
 
       .message-line {
-        font-size: clamp(0.84rem, 3.5vw, 1.05rem);
+        font-size: clamp(1.25rem, 4.9vw, 1.45rem);
+        line-height: 1.55;
+        white-space: normal;
+        padding: 0 10px;
       }
 
-      .cert-btn {
+      .cert-btn,
+      .tap-btn {
         width: 100%;
         max-width: 280px;
       }
@@ -268,8 +340,17 @@
   </style>
 </head>
 <body>
+  <!-- Start screen -->
+  <div id="startScreen" class="start-screen">
+    <div class="start-card">
+      <div class="start-title">For Maiku Pie</div>
+      <div class="start-sub">a little recognition for the grit behind the grind</div>
+      <button id="startBtn" class="tap-btn">Tap to Start</button>
+    </div>
+  </div>
+
   <!-- Scene 1 -->
-  <section id="scene1" class="scene active">
+  <section id="scene1" class="scene">
     <div class="sparkles" aria-hidden="true">
       <span class="sparkle" style="left: 7%; animation-duration: 11s; animation-delay: 0s;">✦</span>
       <span class="sparkle" style="left: 18%; animation-duration: 13s; animation-delay: 2s;">✧</span>
@@ -330,6 +411,9 @@
   </section>
 
   <script>
+    const startScreen = document.getElementById("startScreen");
+    const startBtn = document.getElementById("startBtn");
+
     const scene1 = document.getElementById("scene1");
     const scene2 = document.getElementById("scene2");
     const scene3 = document.getElementById("scene3");
@@ -481,6 +565,8 @@
     }
 
     async function startScene1() {
+      scene1.classList.add("active");
+
       await wait(500);
       await typeText(titleMain, mainText, 78, true);
       await wait(350);
@@ -530,16 +616,12 @@
       await goToScene3();
     });
 
-    // Start after first user interaction to allow audio on mobile browsers
-    async function beginExperience() {
+    startBtn.addEventListener("click", async () => {
       initAudio();
-      document.removeEventListener("click", beginExperience);
-      document.removeEventListener("touchstart", beginExperience);
+      startScreen.classList.add("hide");
+      await wait(500);
       startScene1();
-    }
-
-    document.addEventListener("click", beginExperience, { once: true });
-    document.addEventListener("touchstart", beginExperience, { once: true });
+    });
   </script>
 </body>
-</html>
+  </html>
